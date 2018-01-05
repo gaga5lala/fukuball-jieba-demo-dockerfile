@@ -2,6 +2,7 @@ sudo: required
 services:
   - docker
 before_install:
-  - docker build -t cinhtau/elasticsearch .
+  - version=$(git rev-parse --short HEAD)
+  - docker build -t gaga5lala/fukuball-jieba-demo:$version .
 script:
-  - docker images cinhtau/elasticsearch
+  - docker images gaga5lala/fukuball-jieba-demo
