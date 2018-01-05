@@ -14,5 +14,5 @@ after_success:
   # TODO: only master branch
   - if [ "$TRAVIS_BRANCH" == "use-travis-ci-build-docker" ]; then
     docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
-    docker push gaga5lala/use-travis-ci-build-docker;
+    docker push "gaga5lala/use-travis-ci-build-docker:$version";
     fi
