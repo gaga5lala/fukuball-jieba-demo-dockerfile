@@ -11,8 +11,10 @@ script:
 # - echo "username: $DOCKER_USERNAME"
 # - echo "password: $DOCKER_PASSWORD"
 after_success:
-  # TODO: only master branch
-  - if [ "$TRAVIS_BRANCH" == "use-travis-ci-build-docker" ]; then
-    docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
-    docker push "gaga5lala/use-travis-ci-build-docker:$version";
-    fi
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
+  - export REPO=gaga5lala/fukuball-jieba-demo
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - docker build -t $REPO:$COMMIT .
+  - docker tag $REPO:$COMMIT $REPO:$TAG
+  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+  - docker push $REPO
